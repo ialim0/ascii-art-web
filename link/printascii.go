@@ -15,7 +15,7 @@ func PrintAscii(input string, tab [][]string) string {
 		if len(mots) != 0 {
 			for linenumber < 8 {
 				for _, bit := range []byte(mots) {
-					if bit > 31 && bit < 127 {
+					if bit > 32 && bit < 127 {
 						// Afficher l'art ASCII correspondant à chaque caractère
 						final = final + (tab[bit-32][linenumber])
 					} else {
