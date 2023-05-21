@@ -116,6 +116,11 @@ input[type="submit"] {
 }
 
 @media (max-width: 768px) {
+	.content-wrapper {
+		min-height: 70vh;
+		position: relative;
+	  }
+	
 	.result {
 		
 		font-size: 3px;
