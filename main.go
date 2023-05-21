@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"main.go/handle"
 )
@@ -17,5 +18,5 @@ func main() {
 
 	http.HandleFunc("/", handle.FormHandler)
 	http.HandleFunc("/ascii-art", handle.GenerateHandler)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), nil))
 }
