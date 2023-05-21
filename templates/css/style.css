@@ -114,6 +114,11 @@ input[type="submit"] {
   text-align: center;
   border-radius: 10px;
 }
+pre {
+	max-width: 100%;
+	overflow: auto;
+  }
+  
 
 @media (max-width: 768px) {
 	.content-wrapper {
