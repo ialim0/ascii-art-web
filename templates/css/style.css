@@ -114,3 +114,13 @@ input[type="submit"] {
   text-align: center;
   border-radius: 10px;
 }
+
+@media (max-width: 768px) {
+	.result {
+		
+		font-size: 6px;
+	
+	}
+	
+	
+  }
