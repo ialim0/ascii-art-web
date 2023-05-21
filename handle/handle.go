@@ -67,7 +67,7 @@ func GenerateHandler(w http.ResponseWriter, r *http.Request) {
 	asciiArt := generateASCIIArt(text, banner)
 
 	// Vérifier si l'art ASCII est généré avec succès
-	if len(asciiArt) == 0 || asciiArt == "\nError" {
+	if asciiArt == "\nError" {
 		w.WriteHeader(500)
 		http.ServeFile(w, r, "templates/internalserver.html")
 		return
