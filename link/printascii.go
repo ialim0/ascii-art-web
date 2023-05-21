@@ -19,7 +19,7 @@ func PrintAscii(input string, tab [][]string) string {
 						// Afficher l'art ASCII correspondant à chaque caractère
 						final = final + (tab[bit-32][linenumber])
 					} else {
-                                               final="Error"
+						return "Error"
 
 					}
 				}
