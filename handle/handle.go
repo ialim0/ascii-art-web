@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"strings"
 
 	"main.go/link"
@@ -24,11 +25,18 @@ var validBanners = map[string]bool{
 }
 
 func FormHandler(w http.ResponseWriter, r *http.Request) {
+	if len(os.Args) > 1 {
+
+	}
 	if r.Method != "POST" && r.URL.Path != "/" {
 		w.WriteHeader(404)
 		http.ServeFile(w, r, "templates/error.html")
 
 		return
+	} else if r.Method != "GET" {
+		w.WriteHeader(404)
+		http.ServeFile(w, r, "templates/error.html")
+
 	}
 	tmpl := template.Must(template.ParseFiles("templates/index.html"))
 	tmpl.Execute(w, nil)
@@ -36,23 +44,24 @@ func FormHandler(w http.ResponseWriter, r *http.Request) {
 
 func GenerateHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
-		http.Redirect(w, r, "/", http.StatusFound)
+		w.WriteHeader(404)
+		http.ServeFile(w, r, "templates/error.html")
 		return
-	}
-	if r.Method == "POST" && r.URL.Path != "/ascii-art" {
-		w.WriteHeader(500)
+	} else if r.Method == "POST" && r.URL.Path != "/ascii-art" {
+		w.WriteHeader(400)
 		http.ServeFile(w, r, "templates/error.html")
 		return
 	}
 
 	// Obtenir les données du formulaire
 	text := r.FormValue("text")
+	text = strings.ReplaceAll(text, "\\r", "\\n")
 	banner := r.FormValue("banner")
 
 	// Vérifier si le type de bannière est valide
 	if !isValidBanner(banner) {
-		handleError(w, http.StatusBadRequest, "Type de bannière non valide")
-		http.ServeFile(w, r, "templates/badrequest.html")
+		w.WriteHeader(404)
+		http.ServeFile(w, r, "templates/error.html")
 		return
 	}
 
@@ -67,7 +76,7 @@ func GenerateHandler(w http.ResponseWriter, r *http.Request) {
 	asciiArt := generateASCIIArt(text, banner)
 
 	// Vérifier si l'art ASCII est généré avec succès
-	if asciiArt == "\nError" {
+	if len(asciiArt) == 0 || asciiArt == "\nError" {
 		w.WriteHeader(500)
 		http.ServeFile(w, r, "templates/internalserver.html")
 		return
