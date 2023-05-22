@@ -9,13 +9,13 @@ func PrintAscii(input string, tab [][]string) string {
 	count := 0
 	var final string
 	// Parcourir chaque ligne de la chaîne de caractères
-	for i, mots := range strings.Split(input, "\\n") {
+	for i, mots := range strings.Split(input, "\n") {
 		linenumber := 0
 		// Si la ligne n'est pas vide, afficher chaque caractère de la ligne sous forme d'art ASCII
 		if len(mots) != 0 {
 			for linenumber < 8 {
 				for _, bit := range []byte(mots) {
-					if bit >= 31 && bit <= 127 {
+					if bit > 31 && bit < 127 {
 						// Afficher l'art ASCII correspondant à chaque caractère
 						final = final + (tab[bit-32][linenumber])
 					} else {
