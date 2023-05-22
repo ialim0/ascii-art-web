@@ -6,11 +6,11 @@ import (
 
 // PrintAscii lit une chaîne de caractères en entrée et affiche l'art ASCII correspondant.
 func PrintAscii(input string, tab [][]string) string {
-	input = strings.ReplaceAll(input, "\r", "\\n")
+
 	count := 0
 	var final string
 	// Parcourir chaque ligne de la chaîne de caractères
-	for i, mots := range strings.Split(input, "\\n") {
+	for i, mots := range strings.Split(input, "\r\n") {
 		linenumber := 0
 		// Si la ligne n'est pas vide, afficher chaque caractère de la ligne sous forme d'art ASCII
 		if len(mots) != 0 {
