@@ -18,6 +18,9 @@ func PrintAscii(input string, tab [][]string) string {
 					if bit > 31 && bit < 127 {
 						// Afficher l'art ASCII correspondant à chaque caractère
 						final = final + (tab[bit-32][linenumber])
+					} else if bit == 13 {
+						final = final + "\n"
+
 					} else {
 						return "Error"
 
