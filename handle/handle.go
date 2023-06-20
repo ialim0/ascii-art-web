@@ -26,9 +26,6 @@ var validBanners = map[string]bool{
 
 func FormHandler(w http.ResponseWriter, r *http.Request) {
 	if len(os.Args) > 1 {
-		w.WriteHeader(500)
-		http.ServeFile(w, r, "templates/500.html")
-		return
 
 	}
 	if r.Method != "POST" && r.URL.Path != "/" {
