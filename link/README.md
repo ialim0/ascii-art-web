@@ -1,18 +1,17 @@
-# Welcome to our PrintAscii README
+## create docker image
+Open a terminal or command prompt, navigate to the directory where the Dockerfile is located (the root directory of your Go project), and run the following command:
 
-### PrintAscii Fonction
-The function takes as input a string input and an array of string arrays tab. The function parses each line of the input string, divides it into words separated by \n, and displays each character of each line as ASCII art using the tab array.
+"docker build -t my-go-app ."
+This command wil help you create  an image name "my-go-app".The period (.) at the end of the command indicates that the Dockerfile is in the current directory.
+# 
+Once the image is built, you can run a Docker container using the following command:
+"docker run -p 8080:8080 my-go-app"
+##To view the labels of a Docker image, you can use the docker inspect command. For example, to inspect the labels of the "my-go-app" image, run the following command:
+"docker inspect my-go-app"
 
-The count variable is used to count the number of non-empty lines in input. The variable final is used to store the resulting string containing the ASCII art.
-
-The function uses two nested for loops: the first loop traverses each line of the input string and the second loop traverses each character of each line.
-
-If the line is not empty, the function checks if the character is valid (i.e. if it is between ASCII codes 32 and 126 inclusive) and displays the corresponding ASCII art by retrieving the data from the tab array.
-
-If the line is empty but there was at least one non-empty line before, the function adds an empty line.
-
-The function returns the resulting string containing the ASCII art corresponding to the input string.
-
-## Thank You :smile:
-
-![](https://www.zone01dakar.sn/wp-content/uploads/2022/04/zoneBleu.png)
+# List running containers
+"docker ps"
+# Delete dangling images: Dangling images are the ones that are not associated with any tagged or named image. To remove dangling images, you can use the docker image prune command. This command will remove all unused images. 
+"docker image prune"
+# Clean up unused resources:
+"docker system prune"

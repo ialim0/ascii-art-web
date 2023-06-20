@@ -26,16 +26,26 @@ var validBanners = map[string]bool{
 
 func FormHandler(w http.ResponseWriter, r *http.Request) {
 	if len(os.Args) > 1 {
+		w.WriteHeader(500)
+		http.ServeFile(w, r, "templates/500.html")
+		return
 
 	}
 	if r.Method != "POST" && r.URL.Path != "/" {
-		w.WriteHeader(404)
-		http.ServeFile(w, r, "templates/error.html")
+		if r.URL.Path == "ascii-art" {
+			w.WriteHeader(405)
+			http.ServeFile(w, r, "templates/405.html")
+
+		} else {
+			w.WriteHeader(400)
+			http.ServeFile(w, r, "templates/404.html")
+
+		}
 
 		return
 	} else if r.Method != "GET" {
-		w.WriteHeader(404)
-		http.ServeFile(w, r, "templates/error.html")
+		w.WriteHeader(405)
+		http.ServeFile(w, r, "templates/405.html")
 
 	}
 	tmpl := template.Must(template.ParseFiles("templates/index.html"))
@@ -44,12 +54,12 @@ func FormHandler(w http.ResponseWriter, r *http.Request) {
 
 func GenerateHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
-		w.WriteHeader(404)
-		http.ServeFile(w, r, "templates/error.html")
+		w.WriteHeader(405)
+		http.ServeFile(w, r, "templates/405.html")
 		return
 	} else if r.Method == "POST" && r.URL.Path != "/ascii-art" {
 		w.WriteHeader(400)
-		http.ServeFile(w, r, "templates/error.html")
+		http.ServeFile(w, r, "templates/400.html")
 		return
 	}
 
@@ -61,14 +71,14 @@ func GenerateHandler(w http.ResponseWriter, r *http.Request) {
 	// Vérifier si le type de bannière est valide
 	if !isValidBanner(banner) {
 		w.WriteHeader(404)
-		http.ServeFile(w, r, "templates/error.html")
+		http.ServeFile(w, r, "templates/404.html")
 		return
 	}
 
 	// Vérifier si le texte est vide
 	if text == "" {
 		handleError(w, http.StatusBadRequest, "Le champ de texte ne peut pas être vide")
-		http.ServeFile(w, r, "templates/badrequest.html")
+		http.ServeFile(w, r, "templates/400.html")
 		return
 	}
 
@@ -77,8 +87,8 @@ func GenerateHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Vérifier si l'art ASCII est généré avec succès
 	if len(asciiArt) == 0 || asciiArt == "\nError" {
-		w.WriteHeader(500)
-		http.ServeFile(w, r, "templates/badrequest.html")
+		w.WriteHeader(400)
+		http.ServeFile(w, r, "templates/400.html")
 		return
 
 	}
