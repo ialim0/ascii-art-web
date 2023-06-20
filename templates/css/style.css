@@ -182,6 +182,7 @@ footer a {
 	.content-wrapper {
 		min-height: 40vh;
 		position: relative;
+		max-height: auto;
 	}
 
 	.result {
