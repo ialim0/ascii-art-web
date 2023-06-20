@@ -4,7 +4,6 @@ import (
 	"html/template"
 	"io/ioutil"
 	"net/http"
-	"os"
 	"strings"
 
 	"main.go/link"
@@ -25,9 +24,7 @@ var validBanners = map[string]bool{
 }
 
 func FormHandler(w http.ResponseWriter, r *http.Request) {
-	if len(os.Args) > 1 {
 
-	}
 	if r.Method != "POST" && r.URL.Path != "/" {
 		if r.URL.Path == "ascii-art" {
 			w.WriteHeader(405)
