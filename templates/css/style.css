@@ -10,6 +10,7 @@ body {
 	margin: 0;
 	padding-bottom: 60px;
 	background-color: rgb(14, 114, 114);
+	overflow-y: hidden;
 	/* Footer height */
 }
 
