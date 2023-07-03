@@ -10,7 +10,12 @@ import (
 )
 
 func main() {
-	fmt.Printf("Server run on: http://localhost:8080/\n")
+	PORT := os.Getenv("PORT")
+	if PORT == "" {
+		PORT = "4040" // Default port if PORT environment variable is not set
+	}
+
+	fmt.Printf("Server run on: http://localhost:%s/\n", PORT)
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("templates/css"))))
 	http.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "favicon.ico")
@@ -18,5 +23,5 @@ func main() {
 
 	http.HandleFunc("/", handle.FormHandler)
 	http.HandleFunc("/ascii-art", handle.GenerateHandler)
-	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), nil))
+	log.Fatal(http.ListenAndServe(":"+PORT, nil))
 }
