@@ -10,8 +10,6 @@ body {
 	margin: 0;
 	padding-bottom: 60px;
 	background-color: rgb(14, 114, 114);
-	overflow-y: scroll;
-	overflow-x: hidden;
 	/* Footer height */
 }
 
@@ -81,28 +79,43 @@ input[type="submit"] {
 	color: #fff;
 	border: none;
 	border-radius: 5px;
+	margin: 10px 0px;
+	cursor: pointer;
+}
+/* Download button */
+input[type="button"] {
+	width: 100%;
+	padding: 10px;
+	background-color: #333;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	margin: 10px 0px;
 	cursor: pointer;
 }
 
+
+
+
 /* ASCII Art result */
 .result {
-    font-family: monospace;
-    font-size: 10px;
-    white-space: pre-wrap;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    font-weight: bold;
-    width: 80%;
-    margin: 30px auto 0;
-    text-align: justify;
-    color: black;
-    max-height: calc(100vh - 150px); /* Calcule la hauteur en soustrayant 150px (hauteur du formulaire) */
-    overflow-y: auto;
-    overflow-x: auto;
-}
-
+	font-family: monospace;
+	font-size: 10px;
+	white-space: pre-wrap;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #f9f9f9;
+	font-weight: bold;
+	width: 80%;
+	margin: 30px auto 0;
+	text-align: justify;
+	color: black;
+	max-height: calc(100vh - 150px); /* Calcule la hauteur en soustrayant 150px (hauteur du formulaire) */
+	overflow-y: auto;
+	overflow-x: auto;
+  }
+  
   
 
 pre {
@@ -111,9 +124,10 @@ pre {
 }
 
 .content-wrapper {
-	max-height: 120vh;
+	max-height: 100vh;
 	position: relative;
-}
+  }
+  
 
 /* Footer styles */
 /* Footer styles */
@@ -139,61 +153,22 @@ footer {
 
 /* Rest of the CSS remains the same */
 
-/* 
-footer a {
-	color: #fff;
-	text-decoration: none;
-}
 
-/* 3D effect */
-/* .footer-content {
-	position: relative;
-	display: inline-block;
-	transform-style: preserve-3d;
-	transform: rotateX(45deg);
-} */ */
-
-/* .footer-content:before,
-.footer-content:after {
-	content: "";
-	position: absolute;
-	background-color: #111;
-	width: 100%;
-	height: 50%;
-	left: 0;
-	bottom: -100%;
-	transform: rotateX(-90deg);
-	transform-origin: bottom;
-	transition: transform 0.3s ease-in-out;
-}
-
-.footer-content:before {
-	transform-origin: top;
-	top: -100%;
-	bottom: auto;
-}
-
-.footer-content:hover:before,
-.footer-content:hover:after {
-	transform: rotateX(0);
-} */
 .felem{
-	color: #fff;
+	color: #f71b1b;
 	font-weight: 500;
 	font-size: 18px;
 	font-style: oblique;
 }
 
+
 @media (max-width: 768px) {
 	.content-wrapper {
-		min-height: 40vh;
-		position: relative;
+	  min-height: 40vh;
 	}
-
+  
 	.result {
-		font-size: 3px;
+	  font-size: 3px;
 	}
-	footer{
-		margin: 80px 0;
-	}
-}
+  }
+  

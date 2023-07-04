@@ -23,5 +23,6 @@ func main() {
 
 	http.HandleFunc("/", handle.FormHandler)
 	http.HandleFunc("/ascii-art", handle.GenerateHandler)
+	http.HandleFunc("/download", handle.DownloadHandler)
 	log.Fatal(http.ListenAndServe(":"+PORT, nil))
 }

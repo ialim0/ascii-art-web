@@ -1,9 +1,12 @@
 package handle
 
 import (
+	"fmt"
 	"html/template"
 	"io/ioutil"
 	"net/http"
+	"os"
+	"strconv"
 	"strings"
 
 	"main.go/link"
@@ -16,6 +19,10 @@ type FormData struct {
 	Error  string
 }
 
+var fileNum int = 0
+var fileName string = ""
+var resultascii string
+
 var validBanners = map[string]bool{
 	"standard":   true,
 	"shadow":     true,
@@ -24,7 +31,9 @@ var validBanners = map[string]bool{
 }
 
 func FormHandler(w http.ResponseWriter, r *http.Request) {
+	if len(os.Args) > 1 {
 
+	}
 	if r.Method != "POST" && r.URL.Path != "/" {
 		if r.URL.Path == "ascii-art" {
 			w.WriteHeader(405)
@@ -111,7 +120,38 @@ func generateASCIIArt(text, banner string) string {
 
 	}
 
-	return "\n" + link.PrintAscii(text, tabmax)
+	resultascii = link.PrintAscii(text, tabmax)
+
+	if resultascii != "" {
+		fileNum++
+
+		fileName = "File_" + strconv.Itoa(fileNum) + ".txt"
+		// Créer un fichier en écriture
+		file, err := os.Create(fileName)
+		if err != nil {
+			fmt.Println(err)
+		}
+		defer file.Close()
+
+		// Copier les données dans le fichier
+		_, err = file.Write([]byte(resultascii))
+		if err != nil {
+			fmt.Println(err)
+		}
+
+	}
+
+	return "\n" + resultascii
+}
+func DownloadHandler(w http.ResponseWriter, r *http.Request) {
+
+	// Configuration de l'en-tête de la réponse HTTP
+	w.Header().Set("Content-Type", "text/plain")
+	w.Header().Set("Content-Lentght", strconv.Itoa(len(resultascii)))
+	w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=%s", fileName))
+
+	// Serveur du fichier en tant que réponse HTTP
+	http.ServeFile(w, r, fileName)
 }
 
 func handleError(w http.ResponseWriter, statusCode int, errMsg string) {
