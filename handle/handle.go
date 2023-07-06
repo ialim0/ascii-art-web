@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
-	"strconv"
 	"strings"
 
 	"main.go/link"
@@ -19,8 +18,6 @@ type FormData struct {
 	Error  string
 }
 
-var fileNum int = 0
-var fileName string = ""
 var resultascii string
 
 var validBanners = map[string]bool{
@@ -51,8 +48,17 @@ func FormHandler(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "templates/405.html")
 
 	}
-	tmpl := template.Must(template.ParseFiles("templates/index.html"))
-	tmpl.Execute(w, nil)
+	varinternal := "templates/index.html"
+	if varinternal == "templates/index.html" {
+		tmpl := template.Must(template.ParseFiles(varinternal))
+		tmpl.Execute(w, nil)
+
+	} else {
+		w.WriteHeader(500)
+		http.ServeFile(w, r, "templates/500.html")
+
+	}
+
 }
 
 func GenerateHandler(w http.ResponseWriter, r *http.Request) {
@@ -121,37 +127,18 @@ func generateASCIIArt(text, banner string) string {
 	}
 
 	resultascii = link.PrintAscii(text, tabmax)
+	//Condition de validation
 
-	if resultascii != "" {
-		fileNum++
-
-		fileName = "File_" + strconv.Itoa(fileNum) + ".txt"
-		// Créer un fichier en écriture
-		file, err := os.Create(fileName)
-		if err != nil {
-			fmt.Println(err)
-		}
-		defer file.Close()
-
-		// Copier les données dans le fichier
-		_, err = file.Write([]byte(resultascii))
-		if err != nil {
-			fmt.Println(err)
-		}
-
-	}
-
-	return "\n" + resultascii
+	return resultascii
 }
 func DownloadHandler(w http.ResponseWriter, r *http.Request) {
+	result := r.URL.Query().Get("result")
 
-	// Configuration de l'en-tête de la réponse HTTP
-	w.Header().Set("Content-Type", "text/plain")
-	w.Header().Set("Content-Lentght", strconv.Itoa(len(resultascii)))
-	w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=%s", fileName))
+	w.Header().Set("Content-Disposition", "attachment; filename=ascii-art.txt")
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+	w.Header().Set("Content-Length", fmt.Sprintf("%d", len(result)))
 
-	// Serveur du fichier en tant que réponse HTTP
-	http.ServeFile(w, r, fileName)
+	fmt.Fprint(w, result)
 }
 
 func handleError(w http.ResponseWriter, statusCode int, errMsg string) {

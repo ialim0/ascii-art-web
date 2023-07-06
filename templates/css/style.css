@@ -13,20 +13,11 @@ body {
 	/* Footer height */
 }
 
-/* Main container */
-.container {
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin: 10px;
-}
-
 /* Columns inside the container */
 .col {
 	width: 100%;
 	max-width: 500px;
-	margin: 10px 0;
+	margin: 10px 20px;
 	padding: 10px;
 	background-color: #fff;
 	border-radius: 5px;
@@ -41,11 +32,33 @@ h1 {
 	text-align: center;
 }
 
-/* Form */
-form {
-	margin-bottom: 20px;
+/* Main container */
+.container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	max-width: 500px;
+	margin: 10px auto;
+	flex: 1; /* Occupe tout l'espace disponible */
 }
 
+form {
+	width: 100%;
+	max-width: 400px;
+	margin: 0 auto;
+}
+
+/* Download button container */
+.downloadDiv {
+	width: 100%;
+	max-width: 400px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+  }
+  
 
 /* Text field label */
 label {
@@ -73,7 +86,7 @@ select {
 
 /* Submit button */
 input[type="submit"] {
-	width: 100%;
+	width: 100px;
 	padding: 10px;
 	background-color: #333;
 	color: #fff;
@@ -82,9 +95,10 @@ input[type="submit"] {
 	margin: 10px 0px;
 	cursor: pointer;
 }
+
 /* Download button */
 input[type="button"] {
-	width: 100%;
+	width: 200px;
 	padding: 10px;
 	background-color: #333;
 	color: #fff;
@@ -92,10 +106,13 @@ input[type="button"] {
 	border-radius: 5px;
 	margin: 10px 0px;
 	cursor: pointer;
+  }
+.content-wrapper{
+	margin: 0 20px;
 }
-
-
-
+a{
+	text-decoration: none;
+}
 
 /* ASCII Art result */
 .result {
@@ -106,69 +123,18 @@ input[type="button"] {
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	background-color: #f9f9f9;
-	font-weight: bold;
-	width: 80%;
-	margin: 30px auto 0;
-	text-align: justify;
-	color: black;
-	max-height: calc(100vh - 150px); /* Calcule la hauteur en soustrayant 150px (hauteur du formulaire) */
-	overflow-y: auto;
-	overflow-x: auto;
+	margin: 0 10px;
+	height: 300px; /* Hauteur fixe de 300 pixels (ajustez selon vos besoins) */
+	overflow-y: auto; /* Ajoute une barre de défilement verticale si nécessaire */
   }
   
-  
-
-pre {
-	max-width: 100%;
-	overflow: auto;
-}
-
-.content-wrapper {
-	max-height: 100vh;
-	position: relative;
-  }
-  
-
-/* Footer styles */
-/* Footer styles */
-footer {
-	position: relative;
-	bottom: 0;
-	left: 50%;
-	transform: translateX(-50%);
-	width: 50%;
-	background-color: rgb(14, 114, 114);
-	color: black;
-	padding: 20px 0;
-	margin: 10px 0;
-	text-align: center;
-	perspective: 1000px;
-	border-radius: 10%;
-	border: #ccc solid;
-	font-weight: 800;
-	font-size: 18px;
+pre{
 	
+	overflow: scroll;
 }
 
-
-/* Rest of the CSS remains the same */
-
-
-.felem{
-	color: #f71b1b;
-	font-weight: 500;
-	font-size: 18px;
-	font-style: oblique;
+@media (max-height: 819px) {
+	.col {
+		height: auto; /* Ajuste la hauteur en fonction du contenu */
+	}
 }
-
-
-@media (max-width: 768px) {
-	.content-wrapper {
-	  min-height: 40vh;
-	}
-  
-	.result {
-	  font-size: 3px;
-	}
-  }
-  
